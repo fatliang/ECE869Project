@@ -1,0 +1,116 @@
+\documentclass[a4paper,onecolumn,11pt]{IEEEtran}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{amsthm}
+\usepackage{cases}
+
+\newtheorem{definition}{\textbf{Definition}}
+\newtheorem{proposition}{\textbf{Proposition}}
+\newtheorem{corollary}{\textbf{Corollary}}
+\newtheorem{remark}{\textbf{Remark}}
+\newtheorem{lemma}{\textbf{Lemma}}
+\newtheorem{theorem}{\textbf{Theorem}}
+\newtheorem{example}{\textbf{Example}}
+
+\begin{document}
+\title{ECE869 Project: Downlink Interference Analysis in Heterogeneous Cellular Networks using Stochastic Geometery}
+\author{\IEEEauthorblockN{Yuan Liang}\\
+	\vspace{6pt}
+	\IEEEauthorblockA{Department of Electrical \& Computer Engineering, Michigan State University\\ East Lansing, MI 48824, USA.\\Email: liangy11@msu.edu}}
+\maketitle
+\section{Introduction}
+
+\section{Preliminaries}
+Consider $d$-dimensional Euclidean space $\mathbb{R}^d$. A spatial \emph{Point Process} (p.p.) $\Phi$ is a random, finite or countably-infinite collection of points in the space $\mathbb{R}^d$, without accumulation points. $\Phi$ is often expressed in the form of counting measure of p.p., which is
+\begin{displaymath}
+\Phi = \sum_i \varepsilon_{\bm{C}_i}
+\end{displaymath} 
+where $\bm{C}_i$ is the coordinate of the $i$-th point in p.p. and $\varepsilon_{\bm{c}}$ is the \emph{Dirac measure} at location $\bm{c}$, i. e., for $A \subset \mathbb{R}^d$, $\varepsilon_{\bm{c}}(A)=1$ if $\bm{c} \in A$ and $\varepsilon_{\bm{c}}(A)=0$ otherwise. So $\Phi(A)$ is the number of points of p.p. in area $A$. For any function $f$ defined on $\mathbb{R}^d$, there is   
+\begin{displaymath}
+\sum_i f(\bm{C}_i) = \int_{\mathbb{R}^d}f(\bm{c})\Phi(d\bm{c}).
+\end{displaymath}
+Following gives the definition of Poisson Point Process (p.p.p.).
+\begin{definition}
+A Poisson Point Process $\Phi$ of intensity measure $\Lambda$ is defined by
+\begin{equation}
+Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k\} = \prod_{i=1}^{k} e^{-\Lambda(A_i)}\frac{\Lambda(A_i)^{n_i}}{n_i !}
+\end{equation}
+for all the possible bounded and mutually disjoint sets $A_i$, $i = 1,2, ..., k$, where intensity measure $\Lambda(A_i)$ is the mean number of points in $A_i$. If $\Lambda(d\bm{c}) = \lambda d\bm{c}$, we call $\Phi$ a homogeneous p.p.p. with intensity $\lambda$.  
+\end{definition}
+
+Following is an important property of p.p.p..
+\begin{lemma}
+	Given there are $n$ points in the set $W$, these points are independently and identically distributed (i.i.d) in W according to the law $\frac{\Lambda(\cdot)}{\Lambda(W)}$
+\end{lemma}
+\begin{proof}
+	Let $A_1, ..., A_k$ be an arbitrary partition of $W$, where $A_i \cap A_j = \varnothing$ for $j \neq i$ and $\cup_i A_i = W$. For all $n$, $n_1$, ..., $n_k$ with $\sum_i n_i = n$,
+	\begin{displaymath}
+	Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k | \Phi(W) = n\} = \frac{n!}{\Lambda(W)^n}\prod_{i=1}\frac{\Lambda(A_i)^{n_i}}{n_i!}
+	\end{displaymath}
+\end{proof}
+
+Under many circumstances, the Laplace functional of p.p. is often needed in analysis.
+\begin{definition}
+The Laplace functional $\mathcal{L}$ of a p.p. $\Phi$ is defined as
+\begin{displaymath}
+\mathcal{L}_{\Phi}(f) = \mathbf{E}\left[ e^{-\int_{\mathbb{R}^d} f(\bm{c}) \Phi(d \bm{c})}\right]
+\end{displaymath}
+for some non-negative function $f$ on $\mathbb{R}^d$.
+\end{definition}
+\begin{proposition}
+The Laplace functional of p.p.p. with intensity measure $\Lambda$ is
+\begin{equation}
+\mathcal{L}_{\Phi}(f) = e^{-\int_{\mathbb{R}^d}(1-e^{-f(\bm{c})})\Lambda(d \bm{c})}
+\end{equation}
+\end{proposition}
+\begin{proof}
+See.
+\end{proof}
+
+Some transformations can be applied to a p.p..
+\begin{definition}[\textbf{Superposition}]
+The superposition of p.p. $\Phi_k$ is defined as the sum $\Phi=\sum_k \Phi_k$. 	
+\end{definition}
+\begin{proposition}
+The superposition of independent p.p.p. with intensities $\Lambda_k$ is a p.p.p. with intensity measure $\sum_k \Lambda_k$ if and only if the latter is locally finite measure.
+\end{proposition}	
+\begin{proof}
+See.
+\end{proof}
+\begin{definition}[\textbf{Thinning}]
+The thinning of $\Lambda$ with the retention function $p$ is a p.p. given by
+\begin{displaymath}
+\Lambda^p = \sum_i \delta_i \varepsilon_{\bm{C}_i} 
+\end{displaymath}
+where the random variables $\varepsilon_i$ are independent given $\Phi$, and $Pr\{\delta_i=1|\Phi\}=1-Pr\{\delta_i=0|\Phi\}=p(\bm{C}_k)$.
+\end{definition}
+\begin{proposition}
+The thinning of the p.p.p. of intensity measure $\Lambda$ with retention probability $p$ yields a p.p.p. of intensity measure $\Lambda'$ with $\Lambda'(A)=\int_A p(\bm{c}) \Lambda(d\bm{c})$.
+\end{proposition}
+\begin{proof}
+See.
+\end{proof}
+In the analysis of wireless network, it is of special interest to model the distribution of other points in p.p. given a point at a certain location.
+\begin{definition}[\textbf{Palm theory}]
+Consider a p.p. $\Phi$ with a locally finite mean measure. The Palm version of $\Phi$, $\Phi_{\bm{c}}$, is defined given there is a point at $\bm{c}$. And the reduced Palm version $\Phi_{\bm{c}}^!$ is the p.p. removing point at $\bm{c}$ in $\Phi$.  
+\end{definition}
+\begin{theorem}[\textbf{Slivnyak-Mecke Theorem}]
+For a p.p.p $\Phi$, its reduced Palm version $\Phi_{\bm{c}}^!$ is equal to its original distribution, i.e., $\Phi_{\bm{c}}^! = \Phi$ and $\Phi_{\bm{c}} = \Phi+\varepsilon_{\bm{c}}$ for all $\bm{c}\in\mathbb{R}^d$.    
+\end{theorem}
+\begin{proof}
+See.
+\end{proof}
+In addition, stationarity of a p.p. is also defined.
+\begin{definition}[\textbf{Stationarity}]
+A p.p. $\Phi$ is stationary if its distribution is invariant under translation through any vector $\bm{v}\in\mathbb{R}^d$, i.e. $Pr\{\bm{v}+\Phi \in \Gamma\}=Pr\{\Phi \in \Gamma\}$, where $\bm{v}+\Phi=\bm{v}+\sum_i \varepsilon_{\bm{C}_i} = \sum_i \varepsilon_{\bm{v}+\bm{C}_i}$.
+\end{definition}
+\begin{proposition}
+A homogeneous p.p.p is stationary.
+\end{proposition}
+\begin{proof}
+See.
+\end{proof}
+\end{document}
