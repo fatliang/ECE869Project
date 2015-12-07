@@ -101,9 +101,9 @@ The thinning of $\Lambda$ with the retention function $p$ is a PP given by
 \begin{displaymath}
 \Lambda^p = \sum_i \delta_i \varepsilon_{\bm{C}_i} 
 \end{displaymath}
-where the random variables $\varepsilon_i$ are independent given $\Phi$, and $Pr\{\delta_i=1|\Phi\}=1-Pr\{\delta_i=0|\Phi\}=p(\bm{C}_k)$.
+where the random variables $\varepsilon_i$ are independent given $\Phi$, and $Pr\{\delta_i=1\mid \Phi\}=1-Pr\{\delta_i=0\mid \Phi\}=p(\bm{C}_k)$.
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{prop:PPPthinning}
 The thinning of the PPP of intensity measure $\Lambda$ with retention probability $p$ yields a PPP of intensity measure $\Lambda'$ with $\Lambda'(A)=\int_A p(\bm{c}) \Lambda(d\bm{c})$.
 \end{proposition}
 \begin{proof}
@@ -145,7 +145,7 @@ However, this simple frequency reuse scheme reduce interference at the expense o
 
 Contrary to spectrum sharing, i.e. universal frequency reuse, which increases spectral efficiency at the expense of higher cross-tier interference, spectrum partitioning eliminates cross tier interference at the expense of lower spectral efficiency. The tradeoff between spectrum sharing and partitioning is of interest in heterogeneous networks. In\cite{Chandrasekhar2009TC}, the available spectrum was partitioned into two group, one assigned to macro tier and the other assigned to femto tier. The MBSs were modeled as a hexagonal grid-based model while the femto access points (FAPs) were modeled by a homogeneous PPP. A randomized spectrum access control called frequency ALOHA (F-ALOHA) was proposed, in which each FAP accessed each of the available frequencies independently with probability $p$. It was shown that the optimum $p$ is a non-increasing function of FAP intensity. In\cite{Cheung2012JSAC}, the authors studied the spectrum sharing/partitioning tradeoffs, aiming at maximizing the transmission capacity subject to an outage probability constraint in a two-tier cellular network. PPP modeling was used in both tiers and it was shown that joint allocation is optimal for sparse network deployments while disjoint allocation is optimal in dense network deployments. In\cite{Chandr2009TWC}, the authors addressed the uplink case in a two-tier cellular network, in which the MBSs were modeled via hexagonal grid, FAPs were modeled via PPP and users were also modeled via PPP. The authors showed that spectrum sharing with sectored antennas along with time hopping spread spectrum boosts the network capacity of the system by a factor of seven relative to the spectrum partitioning with omni-directional antennas.   
 \section{Interference Analysis in a Two-Tier Cellular Network}\label{Sec:Int}
-In this section, we demonstrate the applicability of stochastic geometry in heterogeneous cellular networks via a simple example on interference analysis in a two-tier cellular network.
+In this section, we demonstrate the applicability of stochastic geometry in heterogeneous cellular networks via a toy example on interference analysis in a two-tier cellular network.
 \subsection{Model Description}
 Consider a two-tier cellular network consisting of macro tier (tier 1) and femto tier (tier 2). The distribution of MBSs and FAPs are independent PPPs $\Phi_1$ and $\Phi_2$ in $\mathbb{R}^2$ (here we consider the 2-dimensional case) with intensities $\lambda_1$ and $\lambda_2$ respectively. Universal frequency reuse and F-ALOHA are employed, i.e., for each available frequency band or channel, each MBS and FAP will randomly access it with probabilities $p_1$ and $p_2$ respectively. No power control is assume, so in transmission, the received signal power at a distance $r$ from MBS and from FAP are
 \begin{equation}
@@ -153,7 +153,7 @@ P_i(r)=\frac{P_i \cdot H}{r^\alpha}
 \end{equation}
 for $i=1, 2$ respectively, where $P_i$ are constant that stand for the long term received signal power at unit distance from MBS and from FAP respectively, H is a random variable accounting for the random gain of the channel path, and $\alpha$ is the path-loss exponent. Each user will be served by the MBS or FAP the highest long term received signal power of which is highest at the user, equivalent to the MBS or FAP with the smallest weighted distance, where the weighted distance from MBS/FAP is defined as
 \begin{equation}
-r_{weighted}=r{P_i^{-\frac{1}{\alpha}}}
+r_{weighted}=r P_i^{-\frac{1}{\alpha}}
 \end{equation}
 
 Rayleigh fading is assumed in the model, where $H$ is exponentially distributed with mean $\mu = 1$. It is also assumed that $\alpha = 4$.
@@ -161,13 +161,55 @@ Rayleigh fading is assumed in the model, where $H$ is exponentially distributed 
 Consider a user in located at an arbitrary position in the network. Because of the stationarity of PPP, it can be assumed that, without loss of generality, the user is located at the origin.
 First, we address the distances of the nearest MBS and FAP to the user, denoted by $R_1$ and $R_2$ respectively. Since the two PPPs are independent, the probabilities that the nearest MBS/FAP is at a distance greater than $r$ are
 \begin{displaymath}
-Pr\left\lbrace R_i > r \right\rbrace = Pr\left\lbrace \Phi_i(b(r))=0\right\rbrace = e^{-\lambda_i \pi r^2}
+Pr\{ R_i > r \} = Pr\{ \Phi_i(b(r)) =0\} = e^{-\lambda_i \pi r^2}
 \end{displaymath}
-for $i=1,2$ respectively. So the probability density functions (PDFs) of $R_1$ and $R_2$ are
+for $i=1,2$ respectively, where $b(r)$ denotes a ball centered at the origin of radius $r$. So the probability density functions (PDFs) of $R_1$ and $R_2$ are
 \begin{equation}
 f_{R_i}(r) = 2\lambda_i \pi r e^{-\lambda_i \pi r^2}
 \end{equation}
-for $i=1,2$ respectively.   
+for $i=1,2$ respectively. The PDF of that the user is served by a MBS at distance $r$ is
+\begin{eqnarray}
+&&f_{R_1}(r\mid R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}) Pr\{R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}\}\nonumber\\
+&=&f_{R_1,R_2}(r, r P_1^{-\frac{1}{\alpha}} P_2^{\frac{1}{\alpha}} < R_2)\nonumber\\
+&=&f_{R_1}(r) Pr\{ R_2 > r P_1^{-\frac{1}{\alpha}} P_2^{\frac{1}{\alpha}} \} \nonumber\\
+&=&2\lambda_1 \pi r e^{- \pi r^2 [ \lambda_1 + \lambda_2 (\frac{P_2}{P_1})^\frac{2}{\alpha} ] }
+\end{eqnarray}
+where
+\begin{eqnarray}
+&&Pr\{\text{A user is served by MBS}\}\nonumber\\
+&=&Pr\{R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}\}\nonumber\\
+&=&\frac{\lambda_1 {P_1}^\frac{2}{\alpha}}{\lambda_1 {P_1}^\frac{2}{\alpha} + \lambda_2 {P_2}^\frac{2}{\alpha}}
+\end{eqnarray} 
+And the results for FAP can be easily derived by switching the indices.
+
+Suppose that the user is served by a MBS at distance $r$. Conditioned on this, $\Phi_1(b(r)) = 0$ and $\Phi_2( b( ( \frac{P_2}{P_1} )^\frac{1}{\alpha} r) ) = 0$. For PPPs, the distribution of disjoint sets are independent, so $\Phi_1$ in $\mathbb{R}^2 \backslash b(r)$ and $\Phi_2$ in $\mathbb{R}^2 \backslash b( ( \frac{P_2}{P_1} )^\frac{1}{\alpha} r)$ are still homogeneous PPPs with intensities $\lambda_1$ and $\lambda_2$ respectively. The downlink $SINR$ at the user is 
+\begin{equation}
+SINR = \frac{P_1 r^{-\alpha} H}{N_0 + \sum_i\sum_j \Delta(\bm{C}_{i,j}) P_i | \bm{C}_{i,j} |^{-\alpha} H(\bm{C}_{i,j})}
+\end{equation}
+where $N_0$ is the noise power, $\bm{C}_{i,j}$ is the location of the $j$-th BS/AP in $\mathbb{R}^2 \backslash b(r)$ for MBS ($i=1$) and in $\mathbb{R}^2 \backslash b( ( \frac{P_2}{P_1} )^\frac{1}{\alpha} r)$ for FAP ($i=2$), $\Delta(\bm{C}_{i,j})$ is a indicator of whether the BS/AP of tier $i$ located at $\bm{C}_{i,j}$ is using the same frequency band or channel, and $H(\bm{C}_{i,j})$ is random channel gain of the path from $\bm{C}_{i,j}$ to the origin. In the following analysis, noise is omitted, so the term signal interference ratio (SIR) and SINR will be used interchangeably. And $H(\bm{C})$ are assumed to be independent at different locations.
+ 
+Since F-ALOHA protocol is employed, the MBSs and FAPs transmitting in the same frequency band can be modeled as PPPs $\Phi_1'$ and $\Phi_2'$ with intensities $p_1\lambda_1$ and $p_2\lambda_2$ respectively according to proposition \ref{prop:PPPthinning} . Thus the $SIR$ can be denoted by
+\begin{equation}
+SIR = \frac{P_1 r^{-\alpha} H}{\sum_i\sum_j P_i | \bm{C}_{i,j}' |^{-\alpha} H(\bm{C}_{i,j}')}=\frac{P_1 r^{-\alpha} H}{\sum_i I_i}
+\end{equation}
+where $\bm{C}_{i,j}'$ are the locations of points in $\Phi_i'$ and  $I_i$ is the aggregate interference from tier $i$. For any realization $\phi_i'$ of $\Phi_i'$ and $h(\bm{c}_{i,j}')$ of $H(\bm{C}_{i,j}')$, the conditional complementary cumulative distribution function (CCDF) of $SIR$ is
+\begin{eqnarray}
+&&Pr\{SIR \geq \theta \mid \phi_i',h(\bm{c}_{i,j}') \}\nonumber\\
+&=& Pr \{ H \geq \theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')} \mid \phi_i',h(\bm{c}_{i,j}') \} \nonumber\\
+&=& e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')}}
+\end{eqnarray}
+So the CCDF of SIR can be denoted by
+\begin{eqnarray}
+Pr\{SIR \geq \theta\}&=&E\{ e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{C}_{i,j}' |^{-\alpha} H(\bm{C}_{i,j}')}} \} \nonumber\\
+&\stackrel{(a)}{=}&\prod_{i} E \{ e^{- \frac{\theta}{P_1} r^{\alpha} I_i} \} \nonumber\\
+&=&\prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_1} r^{\alpha})
+\end{eqnarray}
+where equation (a) results from the independence among the two PPPs. For the Laplace transform of $I_i$, there is
+\begin{eqnarray}
+&&\mathcal{L}_{I_i} (t) \nonumber\\
+&=&\lim_{A \rightarrow \mathbb{R}^2} \sum_k e^{-\Lambda_i (B)} \frac{(\Lambda_i (B))^k}{k!} (\int_{B}\int_{0}^{\infty} P_i |\bm{c}|^{-\alpha} h dhd\bm{c})^k
+\end{eqnarray}
+       
 \section{Numerical Results}\label{Sec:Num}
 \section{Conclusion}\label{Sec:Con}
 \bibliographystyle{IEEEtran}
