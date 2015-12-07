@@ -1,4 +1,4 @@
-\documentclass[a4paper,onecolumn,11pt]{IEEEtran}
+\documentclass[a4paper,twocolumn]{IEEEtran}
 \usepackage{cite}
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -6,6 +6,7 @@
 \usepackage{bm}
 \usepackage{amsthm}
 \usepackage{cases}
+%\usepackage[numbers,sort&compress]{natbib}
 
 \newtheorem{definition}{\textbf{Definition}}
 \newtheorem{proposition}{\textbf{Proposition}}
@@ -16,52 +17,67 @@
 \newtheorem{example}{\textbf{Example}}
 
 \begin{document}
-\title{ECE869 Project: Downlink Interference Analysis in Heterogeneous Cellular Networks using Stochastic Geometery}
+\title{ECE869 Project: Downlink Interference Analysis in Heterogeneous Cellular Networks using Stochastic Geometry}
 \author{\IEEEauthorblockN{Yuan Liang}\\
 	\vspace{6pt}
 	\IEEEauthorblockA{Department of Electrical \& Computer Engineering, Michigan State University\\ East Lansing, MI 48824, USA.\\Email: liangy11@msu.edu}}
 \maketitle
 \section{Introduction}
+With the rapid development of smart phones, tablets and wearable devices, the demand for Internet connectivity in wireless cellular networks upsurges dramatically in recent years. The traditional homogeneous network expansion technique, such as cell splitting, is inept at handling such a growth since the deployment of macro base station (MBS) necessitates a huge capital expenditure (CAPEX). Under such circumstance, industries start to resort to other solutions, and the concept of small cells is proposed and has been included in 3G, LTE and WiMax standards\cite{Lin2011}.
 
-\section{Preliminaries}
-Consider $d$-dimensional Euclidean space $\mathbb{R}^d$. A spatial \emph{Point Process} (p.p.) $\Phi$ is a random, finite or countably-infinite collection of points in the space $\mathbb{R}^d$, without accumulation points. $\Phi$ is often expressed in the form of counting measure of p.p., which is
+The term ``small cell'' refers to the low-power and low-cost radio access points operating in both licensed and unlicensed spectra. Compared to typical mobile macrocells which have ranges of up to several kilometers, the small cells may have ranges from several meters to several hundred meters. And different from the unlicensed small cells, such as Wi-Fi hot spot, small cells, including femtocells, picocells, microcells and metrocells, can provide service in both licensed and unlicensed bands with higher quality of service (QoS).
+
+In order to reduce the CAPEX and operational expenditure (OPEX) of service providers, some small cells, e.g. femtocells, are deployed and managed by users. Small cells will offload a certain percentage of traffic from macro network and thus improve the network capacity. The network constituted by the MBSs overlaid by the small cell base stations (SBSs) is called a heterogeneous network (also referred to as a multi-tier cellular network).
+
+In order to accommodate more users using limited wireless spectrum resources, universal frequency reuse is often employed in heterogeneous networks\cite{Lin2011, Andrews2012JSAC}. That is, the available spectrum will be aggressively reused by all of the network tiers. This strategy reduces the extra cost of network coordination at the expense of increased interference, in both intra-tier and cross-tier. From a information theoretic perspective, the signal to interference and noise ratio (SINR) plays a fundamental role in determining the capacity of network. Thus the analysis of interference is of special interest in heterogeneous networks.
+
+Conventionally, the distribution of base stations (BSs) in homogeneous networks is assumed to follow a hexagonal grid model. However, such assumption in heterogeneous networks is not suitable because (i) the interference analysis may require massive Monte Carlo simulation\cite{Gilhousen1991} which is intractable and (ii) due to the variation in demand among areas, the distribution of BSs in heterogeneous networks will have random patterns. Thus, new models for heterogeneous cellular networks are needed.
+
+Recently, a new modeling approach basing on stochastic geometry is adopted in heterogeneous networks which can lead to tractable analytical results while keeping the randomness of network geometry. Stochastic geometry is a very powerful mathematical and statistical tool for the modeling, analysis and design of wireless networks with random topologies and has been applied in ad hoc networks for several decades\cite{Haenggi2013Book, Haenggi2009JSAC, Baccelli2009Vol1, Baccelli2009Vol2, Cardieri2010}.
+
+In this paper, we will give a brief introduction of some most basic concepts in stochastic geometry and its application in heterogeneous networks. We will also demonstrate the modeling of heterogeneous networks through a simple downlink interference analysis in a two tier cellular network using stochastic geometry. We wish to illustrate the applicability of stochastic geometry in network modeling and analysis by this paper.
+
+The rest of the paper is organized as follows. Section \ref{Sec:Preli} will present some basic concepts and theorems in stochastic geometry. Section \ref{Sec:Rel} will introduce a few literature on heterogeneous networks using the technique. A simple yet illustrative example of downlink interference analysis in a two-tier cellular network will be discussed in section \ref{Sec:Int} followed by the simulation results in section \ref{Sec:Num}. Finally, section \ref{Sec:Con} will conclude the paper.           
+\section{Preliminaries}\label{Sec:Preli}
+Consider $d$-dimensional Euclidean space $\mathbb{R}^d$. A spatial \emph{Point Process} (PP) $\Phi$ is a random, finite or countably-infinite collection of points in the space $\mathbb{R}^d$, without accumulation points. $\Phi$ is often expressed in the form of counting measure of PP, which is
 \begin{displaymath}
 \Phi = \sum_i \varepsilon_{\bm{C}_i}
 \end{displaymath} 
-where $\bm{C}_i$ is the coordinate of the $i$-th point in p.p. and $\varepsilon_{\bm{c}}$ is the \emph{Dirac measure} at location $\bm{c}$, i. e., for $A \subset \mathbb{R}^d$, $\varepsilon_{\bm{c}}(A)=1$ if $\bm{c} \in A$ and $\varepsilon_{\bm{c}}(A)=0$ otherwise. So $\Phi(A)$ is the number of points of p.p. in area $A$. For any function $f$ defined on $\mathbb{R}^d$, there is   
+where $\bm{C}_i$ is the coordinate of the $i$-th point in PP and $\varepsilon_{\bm{c}}$ is the \emph{Dirac measure} at location $\bm{c}$, i. e., for $A \subset \mathbb{R}^d$, $\varepsilon_{\bm{c}}(A)=1$ if $\bm{c} \in A$ and $\varepsilon_{\bm{c}}(A)=0$ otherwise. So $\Phi(A)$ is the number of points of PP in area $A$. For any function $f$ defined on $\mathbb{R}^d$, there is   
 \begin{displaymath}
 \sum_i f(\bm{C}_i) = \int_{\mathbb{R}^d}f(\bm{c})\Phi(d\bm{c}).
 \end{displaymath}
-Following gives the definition of Poisson Point Process (p.p.p.).
+Following gives the definition of Poisson Point Process (PPP).
 \begin{definition}
 A Poisson Point Process $\Phi$ of intensity measure $\Lambda$ is defined by
 \begin{equation}
 Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k\} = \prod_{i=1}^{k} e^{-\Lambda(A_i)}\frac{\Lambda(A_i)^{n_i}}{n_i !}
 \end{equation}
-for all the possible bounded and mutually disjoint sets $A_i$, $i = 1,2, ..., k$, where intensity measure $\Lambda(A_i)$ is the mean number of points in $A_i$. If $\Lambda(d\bm{c}) = \lambda d\bm{c}$, we call $\Phi$ a homogeneous p.p.p. with intensity $\lambda$.  
+for all the possible bounded and mutually disjoint sets $A_i$, $i = 1,2, ..., k$, where intensity measure $\Lambda(A_i)$ is the mean number of points in $A_i$. If $\Lambda(d\bm{c}) = \lambda d\bm{c}$, we call $\Phi$ a homogeneous PPP with intensity $\lambda$.  
 \end{definition}
 
-Following is an important property of p.p.p..
+Following is an important property of PPP.
 \begin{lemma}
 	Given there are $n$ points in the set $W$, these points are independently and identically distributed (i.i.d) in W according to the law $\frac{\Lambda(\cdot)}{\Lambda(W)}$
 \end{lemma}
 \begin{proof}
 	Let $A_1, ..., A_k$ be an arbitrary partition of $W$, where $A_i \cap A_j = \varnothing$ for $j \neq i$ and $\cup_i A_i = W$. For all $n$, $n_1$, ..., $n_k$ with $\sum_i n_i = n$,
-	\begin{displaymath}
-	Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k | \Phi(W) = n\} = \frac{n!}{\Lambda(W)^n}\prod_{i=1}\frac{\Lambda(A_i)^{n_i}}{n_i!}
-	\end{displaymath}
+	\begin{eqnarray}
+	&&Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k | \Phi(W) = n\}\nonumber\\
+	&=&\frac{n!}{\Lambda(W)^n}\prod_{i=1}\frac{\Lambda(A_i)^{n_i}}{n_i!}\nonumber
+	\end{eqnarray}
 \end{proof}
 
-Under many circumstances, the Laplace functional of p.p. is often needed in analysis.
+Under many circumstances, the Laplace functional of PP is often needed in analysis.
 \begin{definition}
-The Laplace functional $\mathcal{L}$ of a p.p. $\Phi$ is defined as
+The Laplace functional $\mathcal{L}$ of a PP $\Phi$ is defined as
 \begin{displaymath}
 \mathcal{L}_{\Phi}(f) = \mathbf{E}\left[ e^{-\int_{\mathbb{R}^d} f(\bm{c}) \Phi(d \bm{c})}\right]
 \end{displaymath}
 for some non-negative function $f$ on $\mathbb{R}^d$.
 \end{definition}
 \begin{proposition}
-The Laplace functional of p.p.p. with intensity measure $\Lambda$ is
+The Laplace functional of PPP with intensity measure $\Lambda$ is
 \begin{equation}
 \mathcal{L}_{\Phi}(f) = e^{-\int_{\mathbb{R}^d}(1-e^{-f(\bm{c})})\Lambda(d \bm{c})}
 \end{equation}
@@ -70,47 +86,90 @@ The Laplace functional of p.p.p. with intensity measure $\Lambda$ is
 See.
 \end{proof}
 
-Some transformations can be applied to a p.p..
+Some transformations can be applied to a PP.
 \begin{definition}[\textbf{Superposition}]
-The superposition of p.p. $\Phi_k$ is defined as the sum $\Phi=\sum_k \Phi_k$. 	
+The superposition of PP $\Phi_k$ is defined as the sum $\Phi=\sum_k \Phi_k$. 	
 \end{definition}
 \begin{proposition}
-The superposition of independent p.p.p. with intensities $\Lambda_k$ is a p.p.p. with intensity measure $\sum_k \Lambda_k$ if and only if the latter is locally finite measure.
+The superposition of independent PPP with intensities $\Lambda_k$ is a PPP with intensity measure $\sum_k \Lambda_k$ if and only if the latter is locally finite measure.
 \end{proposition}	
 \begin{proof}
 See.
 \end{proof}
 \begin{definition}[\textbf{Thinning}]
-The thinning of $\Lambda$ with the retention function $p$ is a p.p. given by
+The thinning of $\Lambda$ with the retention function $p$ is a PP given by
 \begin{displaymath}
 \Lambda^p = \sum_i \delta_i \varepsilon_{\bm{C}_i} 
 \end{displaymath}
 where the random variables $\varepsilon_i$ are independent given $\Phi$, and $Pr\{\delta_i=1|\Phi\}=1-Pr\{\delta_i=0|\Phi\}=p(\bm{C}_k)$.
 \end{definition}
 \begin{proposition}
-The thinning of the p.p.p. of intensity measure $\Lambda$ with retention probability $p$ yields a p.p.p. of intensity measure $\Lambda'$ with $\Lambda'(A)=\int_A p(\bm{c}) \Lambda(d\bm{c})$.
+The thinning of the PPP of intensity measure $\Lambda$ with retention probability $p$ yields a PPP of intensity measure $\Lambda'$ with $\Lambda'(A)=\int_A p(\bm{c}) \Lambda(d\bm{c})$.
 \end{proposition}
 \begin{proof}
 See.
 \end{proof}
-In the analysis of wireless network, it is of special interest to model the distribution of other points in p.p. given a point at a certain location.
+In the analysis of wireless network, it is of special interest to model the distribution of other points in PP given a point at a certain location.
 \begin{definition}[\textbf{Palm theory}]
-Consider a p.p. $\Phi$ with a locally finite mean measure. The Palm version of $\Phi$, $\Phi_{\bm{c}}$, is defined given there is a point at $\bm{c}$. And the reduced Palm version $\Phi_{\bm{c}}^!$ is the p.p. removing point at $\bm{c}$ in $\Phi$.  
+Consider a PP $\Phi$ with a locally finite mean measure. The Palm version of $\Phi$, $\Phi_{\bm{c}}$, is defined given there is a point at $\bm{c}$. And the reduced Palm version $\Phi_{\bm{c}}^!$ is the PP removing point at $\bm{c}$ in $\Phi$.  
 \end{definition}
 \begin{theorem}[\textbf{Slivnyak-Mecke Theorem}]
-For a p.p.p $\Phi$, its reduced Palm version $\Phi_{\bm{c}}^!$ is equal to its original distribution, i.e., $\Phi_{\bm{c}}^! = \Phi$ and $\Phi_{\bm{c}} = \Phi+\varepsilon_{\bm{c}}$ for all $\bm{c}\in\mathbb{R}^d$.    
+For a PPP $\Phi$, its reduced Palm version $\Phi_{\bm{c}}^!$ is equal to its original distribution, i.e., $\Phi_{\bm{c}}^! = \Phi$ and $\Phi_{\bm{c}} = \Phi+\varepsilon_{\bm{c}}$ for all $\bm{c}\in\mathbb{R}^d$.    
 \end{theorem}
 \begin{proof}
 See.
 \end{proof}
-In addition, stationarity of a p.p. is also defined.
+In addition, stationarity of a PP is also defined.
 \begin{definition}[\textbf{Stationarity}]
-A p.p. $\Phi$ is stationary if its distribution is invariant under translation through any vector $\bm{v}\in\mathbb{R}^d$, i.e. $Pr\{\bm{v}+\Phi \in \Gamma\}=Pr\{\Phi \in \Gamma\}$, where $\bm{v}+\Phi=\bm{v}+\sum_i \varepsilon_{\bm{C}_i} = \sum_i \varepsilon_{\bm{v}+\bm{C}_i}$.
+A PP $\Phi$ is stationary if its distribution is invariant under translation through any vector $\bm{v}\in\mathbb{R}^d$, i.e. $Pr\{\bm{v}+\Phi \in \Gamma\}=Pr\{\Phi \in \Gamma\}$, where $\bm{v}+\Phi=\bm{v}+\sum_i \varepsilon_{\bm{C}_i} = \sum_i \varepsilon_{\bm{v}+\bm{C}_i}$.
 \end{definition}
 \begin{proposition}
-A homogeneous p.p.p is stationary.
+A homogeneous PPP is stationary.
 \end{proposition}
 \begin{proof}
 See.
 \end{proof}
+
+\section{Related Works}\label{Sec:Rel}
+Stochastic geometry is a mathematical tool that can provide spatial averages for quantities of interest (e.g., interference, SINR, outage probability, and achievable data rate) over a large number of nodes randomly distributed or over many network realizations\cite{Haenggi2009JSAC}. Among the PPs, PPP is the mostly used one because of its tractability in analysis, and has been applied in ad hoc network to model the distribution of nodes for more than three decades\cite{Kleinrock1978}. However, since the points are distributed independently in PPP, which is not a proper characterization of the BSs in cellular networks, stochastic geometry and PPP is not widely used in cellular networks until recently.     
+
+In \cite{Andrews2011TC}, the authors compared the performance of a PPP and a square grid model to the performance of an actual deployed cellular network and showed that PPP can provide a lower bound on the coverage probability and the mean transmission rate obtained by measurements that are as tight as the upper bound provided by the idealized grid-base model. Such comparison revealed the accuracy of PPP model and shed lights on the modeling and analysis of cellular wireless networks using stochastic geometry.
+
+In \cite{Andrews2011TC}, the BSs and users were modeled as independent homogeneous PPPs and all the BSs use same frequency. Users were assumed to be served by the BSs which could provide the highest received signal strength (RSS). In this way, the coverage regions of the BSs would form a Voronoi tessellation\cite{Okabe1992}. The conclusions of \cite{Andrews2011TC} are: (a) the PPP model provides a relatively tight bound for the performance of actual network (b) simple expressions of coverage probability and mean transmission rate can be derived by using PPP model (c) when the noise is negligible in transmission, the SINR statistics are independent of the intensity of BSs.
+
+In \cite{Dhillon2012JSAC}, the authors extended the idea in \cite{Andrews2011TC} to a K-tier cellular network. In the multi-tier cellular network, all network tiers were modeled as independent homogeneous PPPs and all tiers used the same frequency bands. The BSs in different tiers would have different power and thus the network coverage constituted a weighted Voronoi tessellation. The authors computed the tier association probability and the average tier load. It was shown that the PPP assumption is accurate to within $1-2$ dB of the measured coverage probability in an actual LTE network overlaid by heterogeneous tiers modeled as PPPs.
+
+Frequency or channel reuse is a challenging task in stochastic geometry because it may impair the independence among the distribution of the nodes which will lead to a intractable analytical results. In \cite{Andrews2011TC}, the authors overcame this problem by employing a simple frequency reuse scheme, i.e., each BS would randomly and uniformly pick one of th available frequency sub-bands to use, which is equivalent to the independent thinning of PPP. 
+
+However, this simple frequency reuse scheme reduce interference at the expense of decreased spectral reuse efficiency. Fraction frequency reuse (FFR) is a possible alternative which can reduce interference while keeping a high reuse efficiency\cite{Novlan2011TWC}\cite{Novlan2012TC}. In FFR, the cells are spatially partitioned into inner cell region and edge cell region, and different frequency sub-bands are assigned to different regions. The authors in \cite{Novlan2011TWC}\cite{Novlan2012TC} extend the models in \cite{Andrews2011TC} and \cite{Dhillon2012JSAC} to include FFR in single and multi-tier cellular networks. The authors partitioned the inner and edge users basing on the SINR threshold, and in order to keep the PPP property, they assumed that each BS would randomly and uniformly chooses one of the sub-bands for the edge users.
+
+Contrary to spectrum sharing, i.e. universal frequency reuse, which increases spectral efficiency at the expense of higher cross-tier interference, spectrum partitioning eliminates cross tier interference at the expense of lower spectral efficiency. The tradeoff between spectrum sharing and partitioning is of interest in heterogeneous networks. In\cite{Chandrasekhar2009TC}, the available spectrum was partitioned into two group, one assigned to macro tier and the other assigned to femto tier. The MBSs were modeled as a hexagonal grid-based model while the femto access points (FAPs) were modeled by a homogeneous PPP. A randomized spectrum access control called frequency ALOHA (F-ALOHA) was proposed, in which each FAP accessed each of the available frequencies independently with probability $p$. It was shown that the optimum $p$ is a non-increasing function of FAP intensity. In\cite{Cheung2012JSAC}, the authors studied the spectrum sharing/partitioning tradeoffs, aiming at maximizing the transmission capacity subject to an outage probability constraint in a two-tier cellular network. PPP modeling was used in both tiers and it was shown that joint allocation is optimal for sparse network deployments while disjoint allocation is optimal in dense network deployments. In\cite{Chandr2009TWC}, the authors addressed the uplink case in a two-tier cellular network, in which the MBSs were modeled via hexagonal grid, FAPs were modeled via PPP and users were also modeled via PPP. The authors showed that spectrum sharing with sectored antennas along with time hopping spread spectrum boosts the network capacity of the system by a factor of seven relative to the spectrum partitioning with omni-directional antennas.   
+\section{Interference Analysis in a Two-Tier Cellular Network}\label{Sec:Int}
+In this section, we demonstrate the applicability of stochastic geometry in heterogeneous cellular networks via a simple example on interference analysis in a two-tier cellular network.
+\subsection{Model Description}
+Consider a two-tier cellular network consisting of macro tier (tier 1) and femto tier (tier 2). The distribution of MBSs and FAPs are independent PPPs $\Phi_1$ and $\Phi_2$ in $\mathbb{R}^2$ (here we consider the 2-dimensional case) with intensities $\lambda_1$ and $\lambda_2$ respectively. Universal frequency reuse and F-ALOHA are employed, i.e., for each available frequency band or channel, each MBS and FAP will randomly access it with probabilities $p_1$ and $p_2$ respectively. No power control is assume, so in transmission, the received signal power at a distance $r$ from MBS and from FAP are
+\begin{equation}
+P_i(r)=\frac{P_i \cdot H}{r^\alpha} 
+\end{equation}
+for $i=1, 2$ respectively, where $P_i$ are constant that stand for the long term received signal power at unit distance from MBS and from FAP respectively, H is a random variable accounting for the random gain of the channel path, and $\alpha$ is the path-loss exponent. Each user will be served by the MBS or FAP the highest long term received signal power of which is highest at the user, equivalent to the MBS or FAP with the smallest weighted distance, where the weighted distance from MBS/FAP is defined as
+\begin{equation}
+r_{weighted}=r{P_i^{-\frac{1}{\alpha}}}
+\end{equation}
+
+Rayleigh fading is assumed in the model, where $H$ is exponentially distributed with mean $\mu = 1$. It is also assumed that $\alpha = 4$.
+\subsection{Interference Analysis}
+Consider a user in located at an arbitrary position in the network. Because of the stationarity of PPP, it can be assumed that, without loss of generality, the user is located at the origin.
+First, we address the distances of the nearest MBS and FAP to the user, denoted by $R_1$ and $R_2$ respectively. Since the two PPPs are independent, the probabilities that the nearest MBS/FAP is at a distance greater than $r$ are
+\begin{displaymath}
+Pr\left\lbrace R_i > r \right\rbrace = Pr\left\lbrace \Phi_i(b(r))=0\right\rbrace = e^{-\lambda_i \pi r^2}
+\end{displaymath}
+for $i=1,2$ respectively. So the probability density functions (PDFs) of $R_1$ and $R_2$ are
+\begin{equation}
+f_{R_i}(r) = 2\lambda_i \pi r e^{-\lambda_i \pi r^2}
+\end{equation}
+for $i=1,2$ respectively.   
+\section{Numerical Results}\label{Sec:Num}
+\section{Conclusion}\label{Sec:Con}
+\bibliographystyle{IEEEtran}
+\bibliography{ref}  
 \end{document}
