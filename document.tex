@@ -51,7 +51,7 @@ Following gives the definition of Poisson Point Process (PPP).
 \begin{definition}
 A Poisson Point Process $\Phi$ of intensity measure $\Lambda$ is defined by
 \begin{equation}
-Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k\} = \prod_{i=1}^{k} e^{-\Lambda(A_i)}\frac{\Lambda(A_i)^{n_i}}{n_i !}
+\Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k\} = \prod_{i=1}^{k} e^{-\Lambda(A_i)}\frac{\Lambda(A_i)^{n_i}}{n_i !}
 \end{equation}
 for all the possible bounded and mutually disjoint sets $A_i$, $i = 1,2, ..., k$, where intensity measure $\Lambda(A_i)$ is the mean number of points in $A_i$. If $\Lambda(d\bm{c}) = \lambda d\bm{c}$, we call $\Phi$ a homogeneous PPP with intensity $\lambda$.  
 \end{definition}
@@ -63,7 +63,7 @@ Following is an important property of PPP.
 \begin{proof}
 	Let $A_1, ..., A_k$ be an arbitrary partition of $W$, where $A_i \cap A_j = \varnothing$ for $j \neq i$ and $\cup_i A_i = W$. For all $n$, $n_1$, ..., $n_k$ with $\sum_i n_i = n$,
 	\begin{eqnarray}
-	&&Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k | \Phi(W) = n\}\nonumber\\
+	&&\Pr\{\Phi(A_1) = n_1, ..., \Phi(A_k) = n_k | \Phi(W) = n\}\nonumber\\
 	&=&\frac{n!}{\Lambda(W)^n}\prod_{i=1}\frac{\Lambda(A_i)^{n_i}}{n_i!}\nonumber
 	\end{eqnarray}
 \end{proof}
@@ -101,7 +101,7 @@ The thinning of $\Lambda$ with the retention function $p$ is a PP given by
 \begin{displaymath}
 \Lambda^p = \sum_i \delta_i \varepsilon_{\bm{C}_i} 
 \end{displaymath}
-where the random variables $\varepsilon_i$ are independent given $\Phi$, and $Pr\{\delta_i=1\mid \Phi\}=1-Pr\{\delta_i=0\mid \Phi\}=p(\bm{C}_k)$.
+where the random variables $\varepsilon_i$ are independent given $\Phi$, and $\Pr\{\delta_i=1\mid \Phi\}=1-\Pr\{\delta_i=0\mid \Phi\}=p(\bm{C}_k)$.
 \end{definition}
 \begin{proposition}\label{prop:PPPthinning}
 The thinning of the PPP of intensity measure $\Lambda$ with retention probability $p$ yields a PPP of intensity measure $\Lambda'$ with $\Lambda'(A)=\int_A p(\bm{c}) \Lambda(d\bm{c})$.
@@ -121,7 +121,7 @@ See.
 \end{proof}
 In addition, stationarity of a PP is also defined.
 \begin{definition}[\textbf{Stationarity}]
-A PP $\Phi$ is stationary if its distribution is invariant under translation through any vector $\bm{v}\in\mathbb{R}^d$, i.e. $Pr\{\bm{v}+\Phi \in \Gamma\}=Pr\{\Phi \in \Gamma\}$, where $\bm{v}+\Phi=\bm{v}+\sum_i \varepsilon_{\bm{C}_i} = \sum_i \varepsilon_{\bm{v}+\bm{C}_i}$.
+A PP $\Phi$ is stationary if its distribution is invariant under translation through any vector $\bm{v}\in\mathbb{R}^d$, i.e. $\Pr\{\bm{v}+\Phi \in \Gamma\}=\Pr\{\Phi \in \Gamma\}$, where $\bm{v}+\Phi=\bm{v}+\sum_i \varepsilon_{\bm{C}_i} = \sum_i \varepsilon_{\bm{v}+\bm{C}_i}$.
 \end{definition}
 \begin{proposition}
 A homogeneous PPP is stationary.
@@ -161,7 +161,7 @@ Rayleigh fading is assumed in the model, where $H$ is exponentially distributed 
 Consider a user in located at an arbitrary position in the network. Because of the stationarity of PPP, it can be assumed that, without loss of generality, the user is located at the origin.
 First, we address the distances of the nearest MBS and FAP to the user, denoted by $R_1$ and $R_2$ respectively. Since the two PPPs are independent, the probabilities that the nearest MBS/FAP is at a distance greater than $r$ are
 \begin{displaymath}
-Pr\{ R_i > r \} = Pr\{ \Phi_i(b(r)) =0\} = e^{-\lambda_i \pi r^2}
+\Pr\{ R_i > r \} = \Pr\{ \Phi_i(b(r)) =0\} = e^{-\lambda_i \pi r^2}
 \end{displaymath}
 for $i=1,2$ respectively, where $b(r)$ denotes a ball centered at the origin of radius $r$. So the probability density functions (PDFs) of $R_1$ and $R_2$ are
 \begin{equation}
@@ -169,15 +169,14 @@ f_{R_i}(r) = 2\lambda_i \pi r e^{-\lambda_i \pi r^2}
 \end{equation}
 for $i=1,2$ respectively. The PDF of that the user is served by a MBS at distance $r$ is
 \begin{eqnarray}\label{Eq:distance_dist}
-&&f_{R_1}(r\mid R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}) Pr\{R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}\}\nonumber\\
+&&f_{R_1}(r\mid R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}) \Pr\{R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}\}\nonumber\\
 &=&f_{R_1,R_2}(r, r P_1^{-\frac{1}{\alpha}} P_2^{\frac{1}{\alpha}} < R_2)\nonumber\\
-&=&f_{R_1}(r) Pr\{ R_2 > r P_1^{-\frac{1}{\alpha}} P_2^{\frac{1}{\alpha}} \} \nonumber\\
+&=&f_{R_1}(r) \Pr\{ R_2 > r P_1^{-\frac{1}{\alpha}} P_2^{\frac{1}{\alpha}} \} \nonumber\\
 &=&2\lambda_1 \pi r e^{- \pi r^2 [ \lambda_1 + \lambda_2 (\frac{P_2}{P_1})^\frac{2}{\alpha} ] }
 \end{eqnarray}
 where
-\begin{eqnarray}
-&&Pr\{\text{A user is served by MBS}\}\nonumber\\
-&=&Pr\{R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}\}\nonumber\\
+\begin{eqnarray}\label{Eq:Prob_Serv}
+\Pr\{\text{A user is served by MBS}\}&=&\Pr\{R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}\}\nonumber\\
 &=&\frac{\lambda_1 {P_1}^\frac{2}{\alpha}}{\lambda_1 {P_1}^\frac{2}{\alpha} + \lambda_2 {P_2}^\frac{2}{\alpha}}
 \end{eqnarray} 
 And the results for FAP can be easily derived by switching the indices.
@@ -194,14 +193,14 @@ SIR = \frac{P_1 r^{-\alpha} H}{\sum_i\sum_j P_i | \bm{C}_{i,j}' |^{-\alpha} H(\b
 \end{equation}
 where $\bm{C}_{i,j}'$ are the locations of points in $\Phi_i'$ and  $I_i$ is the aggregate interference from tier $i$. For any realization $\phi_i'$ of $\Phi_i'$ and $h(\bm{c}_{i,j}')$ of $H(\bm{C}_{i,j}')$, the conditional complementary cumulative distribution function (CCDF) of $SIR$ is
 \begin{eqnarray}
-&&Pr\{SIR \geq \theta \mid r, \phi_i',h(\bm{c}_{i,j}') \}\nonumber\\
-&=& Pr \{ H \geq \theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} \mid r, \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')} \mid \phi_i',h(\bm{c}_{i,j}') \} \nonumber\\
+&&\Pr\{SIR > \theta \mid r, \phi_i',h(\bm{c}_{i,j}') \}\nonumber\\
+&=& \Pr \{ H > \theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} \mid r, \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')} \mid \phi_i',h(\bm{c}_{i,j}') \} \nonumber\\
 &=& e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')}}
 \end{eqnarray}
 So the CCDF of SIR can be denoted by
 \begin{eqnarray}
-Pr\{SIR \geq \theta \mid r\}&=&E\{ e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{C}_{i,j}' |^{-\alpha} H(\bm{C}_{i,j}')}} \} \nonumber\\
-&\stackrel{(a)}{=}&\prod_{i} E \{ e^{- \frac{\theta}{P_1} r^{\alpha} I_i} \} \nonumber\\
+\Pr\{SIR > \theta \mid r\}&=&\mathbf{E}\{ e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{C}_{i,j}' |^{-\alpha} H(\bm{C}_{i,j}')}} \} \nonumber\\
+&\stackrel{(a)}{=}&\prod_{i} \mathbf{E} \{ e^{- \frac{\theta}{P_1} r^{\alpha} I_i} \} \nonumber\\
 &=&\prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_1} r^{\alpha})
 \end{eqnarray}
 where equation (a) results from the independence among the two PPPs. For the Laplace transform of $I_i$, there is
@@ -217,15 +216,57 @@ where $\Lambda_i'(\cdot)$ is the intensity function of $\Phi_i'$, $B=A\backslash
 (\ref{Eq:Lap_Intf})&=&e^{-2\pi p_i \lambda_i \int_{r\sqrt[4]{\frac{P_i}{P_1}}}^{\infty}\rho\frac{t P_i}{\rho^4 + t P_i}d\rho}\nonumber\\
 &=&e^{-\pi p_i \lambda_i \sqrt{t P_i} [\frac{\pi}{2}-\arctan(\frac{r^2}{\sqrt{tP_1}})]} 
 \end{eqnarray}
-Combining (\ref{Eq:Lap_Intf}) and (\ref{Eq:Lap_Intf_closed}) we can calculate the probability of $SIR$ as well as the outage probability of the user. And for an arbitrary user, by (\ref{Eq:distance_dist}) the CCDF of SIR can be calculated as
-\begin{eqnarray}
-&&Pr\{SIR \geq \theta \}\nonumber\\
-&=&\int 2\lambda_1 \pi r e^{-\pi r^2 [ \lambda_1 + \lambda_2 (\frac{P_2}{P_1})^\frac{2}{\alpha}]} \prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_1} r^{\alpha})\nonumber\\
-&&{}+2\lambda_2 \pi r e^{-\pi r^2 [ \lambda_2 + \lambda_1 (\frac{P_1}{P_2})^\frac{2}{\alpha}]} \prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_2} r^{\alpha})dr\nonumber
-\end{eqnarray}
+Combining (\ref{Eq:Lap_Intf}) and (\ref{Eq:Lap_Intf_closed}), we can calculate the probability of $SIR$ as well as the outage probability of the user, which is
+\begin{equation}
+\Pr\{SIR > \theta \mid r\} = e^{-\pi r^2 \sqrt{\frac{\theta}{P_1}} [\frac{\pi}{2}-\arctan(\frac{1}{\sqrt{\theta}})] \sum_i p_i \lambda_i \sqrt{P_i}} 
+\end{equation}
 
-       
+For an arbitrary user, by (\ref{Eq:distance_dist}) the CCDF of SIR can be calculated as
+\begin{eqnarray}\label{Eq:CCDF_SIR}
+&&\Pr\{SIR > \theta \}\nonumber\\
+&=&\sum_i \lambda_i \int 2\pi r e^{- \pi r^2 \sum_j (1+p_j \sqrt{\theta} [\frac{\pi}{2}-\arctan(\frac{1}{\sqrt{\theta}})]) \lambda_j \sqrt{\frac{P_j}{P_i}}} dr \nonumber\\
+&=&\frac{\sum_i \lambda_i \sqrt{P_i}}{\sum_j (1+p_j \sqrt{\theta} [\frac{\pi}{2}-\arctan(\frac{1}{\sqrt{\theta}})])\lambda_j \sqrt{P_j}}
+\end{eqnarray}
+From (\ref{Eq:Prob_Serv}) and (\ref{Eq:CCDF_SIR}), it can be concluded that the statistics of SIR in two tiers are identical.
+
+The CCDF of channel capacity of an arbitrary frequency subband can be expressed as
+\begin{displaymath}
+\Pr\{\ln(1+SIR)>t\}=\Pr\{SIR>e^t-1\}
+\end{displaymath}
+and it can be easily verified that
+\begin{displaymath}
+\lim_{t \rightarrow \infty} t \cdot \Pr\{\ln(1+SIR)>t\} = 0
+\end{displaymath} 
+So the expectation of channel capacity is
+\begin{eqnarray}
+\mathbf{E}\{\ln(1+SIR)\}&=&\int_{0}^{\infty}\Pr\{\ln(1+SIR)>t\}dt \nonumber\\
+&=&\int_{0}^{\infty} \Pr\{SIR>e^t-1\} dt
+\end{eqnarray}
+Note that the spatial reuse density of each frequency subband is $\sum_i p_i \lambda_i $, then the spatial average of channel capacity is
+\begin{equation}
+ \sum_i p_i \lambda_i \int_{0}^{\infty} \Pr\{SIR>e^t-1\} dt
+\end{equation}
+           
 \section{Numerical Results}\label{Sec:Num}
+In this section, the numerical values of network metrics derived in \ref{Sec:Int} will be simulated.
+
+The network parameters are following: the BS/AP intensities are $\lambda_1 = 10^{-6} /\text{m}^2$ and $\lambda_2 = 10^{-4} /\text{m}^2$, the transmitting power of MBS is $10^4$ times higher than that of FAP. In this case, basing on (\ref{Eq:Prob_Serv}), an arbitrary user will be served by MBS or FAP with equal probability, and the statistics of SIR will be equivalent to that in the single tier case with access probability $\frac{p_1+p_2}{2}$.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width = 0.4\textwidth]{figure/Outage_cropped}
+	\label{Fig:Outage}
+	\caption{Outage probability of the two-tier network}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width = 0.4\textwidth]{figure/Capacity_cropped}
+	\label{Fig:Capacity}
+	\caption{Outage probability of the two-tier network}
+\end{figure}
+
+The outage probability of a channel is defined as the probability that the SIR of the channel is below a certain threshold, which is equivalent to the CDF of the SIR. Fig. \ref{Fig:Outage} gives the numerical value of outage probability for different SIR thresholds and different access probabilities $p_1$, $p_2$. 
 \section{Conclusion}\label{Sec:Con}
 \bibliographystyle{IEEEtran}
 \bibliography{ref}  
