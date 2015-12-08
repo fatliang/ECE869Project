@@ -168,7 +168,7 @@ for $i=1,2$ respectively, where $b(r)$ denotes a ball centered at the origin of 
 f_{R_i}(r) = 2\lambda_i \pi r e^{-\lambda_i \pi r^2}
 \end{equation}
 for $i=1,2$ respectively. The PDF of that the user is served by a MBS at distance $r$ is
-\begin{eqnarray}
+\begin{eqnarray}\label{Eq:distance_dist}
 &&f_{R_1}(r\mid R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}) Pr\{R_1 P_1^{-\frac{1}{\alpha}} < R_2 P_2^{-\frac{1}{\alpha}}\}\nonumber\\
 &=&f_{R_1,R_2}(r, r P_1^{-\frac{1}{\alpha}} P_2^{\frac{1}{\alpha}} < R_2)\nonumber\\
 &=&f_{R_1}(r) Pr\{ R_2 > r P_1^{-\frac{1}{\alpha}} P_2^{\frac{1}{\alpha}} \} \nonumber\\
@@ -194,21 +194,36 @@ SIR = \frac{P_1 r^{-\alpha} H}{\sum_i\sum_j P_i | \bm{C}_{i,j}' |^{-\alpha} H(\b
 \end{equation}
 where $\bm{C}_{i,j}'$ are the locations of points in $\Phi_i'$ and  $I_i$ is the aggregate interference from tier $i$. For any realization $\phi_i'$ of $\Phi_i'$ and $h(\bm{c}_{i,j}')$ of $H(\bm{C}_{i,j}')$, the conditional complementary cumulative distribution function (CCDF) of $SIR$ is
 \begin{eqnarray}
-&&Pr\{SIR \geq \theta \mid \phi_i',h(\bm{c}_{i,j}') \}\nonumber\\
-&=& Pr \{ H \geq \theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')} \mid \phi_i',h(\bm{c}_{i,j}') \} \nonumber\\
+&&Pr\{SIR \geq \theta \mid r, \phi_i',h(\bm{c}_{i,j}') \}\nonumber\\
+&=& Pr \{ H \geq \theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} \mid r, \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')} \mid \phi_i',h(\bm{c}_{i,j}') \} \nonumber\\
 &=& e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{c}_{i,j}' |^{-\alpha} h(\bm{c}_{i,j}')}}
 \end{eqnarray}
 So the CCDF of SIR can be denoted by
 \begin{eqnarray}
-Pr\{SIR \geq \theta\}&=&E\{ e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{C}_{i,j}' |^{-\alpha} H(\bm{C}_{i,j}')}} \} \nonumber\\
+Pr\{SIR \geq \theta \mid r\}&=&E\{ e^{-\theta r^{\alpha} {\sum_i\sum_j \frac{P_i}{P_1} | \bm{C}_{i,j}' |^{-\alpha} H(\bm{C}_{i,j}')}} \} \nonumber\\
 &\stackrel{(a)}{=}&\prod_{i} E \{ e^{- \frac{\theta}{P_1} r^{\alpha} I_i} \} \nonumber\\
 &=&\prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_1} r^{\alpha})
 \end{eqnarray}
 where equation (a) results from the independence among the two PPPs. For the Laplace transform of $I_i$, there is
-\begin{eqnarray}
-&&\mathcal{L}_{I_i} (t) \nonumber\\
-&=&\lim_{A \rightarrow \mathbb{R}^2} \sum_k e^{-\Lambda_i (B)} \frac{(\Lambda_i (B))^k}{k!} (\int_{B}\int_{0}^{\infty} P_i |\bm{c}|^{-\alpha} h dhd\bm{c})^k
+\begin{eqnarray}\label{Eq:Lap_Intf}
+\mathcal{L}_{I_i} (t) &=&\lim_{A \rightarrow \mathbb{R}^2} \sum_k e^{-\Lambda_i' (B)} \frac{(\Lambda_i' (B))^k}{k!}\cdot \nonumber\\
+&&(\frac{1}{\Lambda_i' (B)}\int_{B}\int e^{-t P_i |\bm{c}|^{-\alpha} h}f(h) dh \Lambda_i'(d\bm{c}))^k \nonumber\\
+&=&\lim_{A \rightarrow \mathbb{R}^2} e^{-\Lambda_i' (B)+\int_{B}\int e^{-t P_i |\bm{c}|^{-\alpha} h}f(h) dh \Lambda_i'(d\bm{c})}\nonumber\\
+&=&\lim_{A \rightarrow \mathbb{R}^2}  e^{-\int_{B}[1-\int e^{-t P_i |\bm{c}|^{-\alpha} h}f(h) dh] \Lambda_i'(d\bm{c})}\nonumber\\
+&=&\lim_{A \rightarrow \mathbb{R}^2}  e^{-\int_{B}[1-\mathcal{L}_H (t P_i |\bm{c}|^{-\alpha})] \Lambda_i'(d\bm{c})}
 \end{eqnarray}
+where $\Lambda_i'(\cdot)$ is the intensity function of $\Phi_i'$, $B=A\backslash b( ( \frac{P_i}{P_1} )^\frac{1}{\alpha} r)$, and $\mathcal{L}_H(\cdot)$ is the Laplace function of $H$. Since $\Phi_i'$ are homogeneous PPPs with intensities $p_i\lambda_i$, $H$ is exponentially distributed with mean 1 and $\alpha = 4$, (\ref{Eq:Lap_Intf}) can be calculated as
+\begin{eqnarray}\label{Eq:Lap_Intf_closed}
+(\ref{Eq:Lap_Intf})&=&e^{-2\pi p_i \lambda_i \int_{r\sqrt[4]{\frac{P_i}{P_1}}}^{\infty}\rho\frac{t P_i}{\rho^4 + t P_i}d\rho}\nonumber\\
+&=&e^{-\pi p_i \lambda_i \sqrt{t P_i} [\frac{\pi}{2}-\arctan(\frac{r^2}{\sqrt{tP_1}})]} 
+\end{eqnarray}
+Combining (\ref{Eq:Lap_Intf}) and (\ref{Eq:Lap_Intf_closed}) we can calculate the probability of $SIR$ as well as the outage probability of the user. And for an arbitrary user, by (\ref{Eq:distance_dist}) the CCDF of SIR can be calculated as
+\begin{eqnarray}
+&&Pr\{SIR \geq \theta \}\nonumber\\
+&=&\int 2\lambda_1 \pi r e^{-\pi r^2 [ \lambda_1 + \lambda_2 (\frac{P_2}{P_1})^\frac{2}{\alpha}]} \prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_1} r^{\alpha})\nonumber\\
+&&{}+2\lambda_2 \pi r e^{-\pi r^2 [ \lambda_2 + \lambda_1 (\frac{P_1}{P_2})^\frac{2}{\alpha}]} \prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_2} r^{\alpha})dr\nonumber
+\end{eqnarray}
+
        
 \section{Numerical Results}\label{Sec:Num}
 \section{Conclusion}\label{Sec:Con}
