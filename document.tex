@@ -255,18 +255,22 @@ The network parameters are following: the BS/AP intensities are $\lambda_1 = 10^
 \begin{figure}[t]
 	\centering
 	\includegraphics[width = 0.4\textwidth]{figure/Outage_cropped}
-	\label{Fig:Outage}
+	
 	\caption{Outage probability of the two-tier network}
+	\label{Fig:Outage}
 \end{figure}
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width = 0.4\textwidth]{figure/Capacity_cropped}
-	\label{Fig:Capacity}
+	
 	\caption{Outage probability of the two-tier network}
+	\label{Fig:Capacity}
 \end{figure}
 
-The outage probability of a channel is defined as the probability that the SIR of the channel is below a certain threshold, which is equivalent to the CDF of the SIR. Fig. \ref{Fig:Outage} gives the numerical value of outage probability for different SIR thresholds and different access probabilities $p_1$, $p_2$. 
+The outage probability of a channel is defined as the probability that the SIR of the channel is below a certain threshold, which is equivalent to the CDF of the SIR. Fig. \ref{Fig:Outage} gives the numerical value of outage probability for different SIR thresholds and different access probabilities $p_1$, $p_2$. The figure shows that even with a low access probability, the outage probability is still relatively high for high SIR threshold. However, in this toy example, no sophisticated frequency reuse scheme is employed (e.g., FFR and cognitive radio), which could be instrumental in reducing the interference.
+
+Fig. \ref{Fig:Capacity} gives the spatial average of channel capacity in an arbitrary frequency subband. It shows a very interesting result: from a information theory perspective, decreasing the access probability can reduce the interference, though, the channel capacity is also reduced. That is, more opportunities for transmission may outweigh a lower interference for the purpose of pursuing a better overall performance. However, this is only a conclusion in theoretical settings where the ideal channel coding of infinite length is applied, which is not possible in practice. The non-zero channel capacity may not be able to guarantee a valid communication between BS/AP and user when the SIR is too low.    
 \section{Conclusion}\label{Sec:Con}
 \bibliographystyle{IEEEtran}
 \bibliography{ref}  

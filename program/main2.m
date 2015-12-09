@@ -1,6 +1,6 @@
 lambda = [1e-6,1e-4];
 pw = [1,1e-4];
-p_array = 0.1:0.1:1;
+p_array = [0.1:0.1:1];
 cap_av = zeros(size(p_array));%spatial average
 for i = 1:length(p_array)
   p = [p_array(i) p_array(i)];
