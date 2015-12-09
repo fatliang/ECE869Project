@@ -22,6 +22,11 @@
 	\vspace{6pt}
 	\IEEEauthorblockA{Department of Electrical \& Computer Engineering, Michigan State University\\ East Lansing, MI 48824, USA.\\Email: liangy11@msu.edu}}
 \maketitle
+
+\begin{abstract}
+	Stochastic geometry is a mathematic tool that has been used in the analysis of ad hoc networks to model the distribution nodes for more than three decades. Recently, people start to apply stochastic geometry to heterogeneous networks to provide tractable results in network evaluation. In this paper, we briefly introduce the basic concepts in stochastic geometry and the literature on the topic. A toy example is given to illustrate the applicability of stochastic geometry in heterogeneous network. It is shown that stochastic geometry can greatly simplify the analysis. The results also demonstrate the advantage of universal frequency reuse in heterogeneous networks.
+\end{abstract}
+
 \section{Introduction}
 With the rapid development of smart phones, tablets and wearable devices, the demand for Internet connectivity in wireless cellular networks upsurges dramatically in recent years. The traditional homogeneous network expansion technique, such as cell splitting, is inept at handling such a growth since the deployment of macro base station (MBS) necessitates a huge capital expenditure (CAPEX). Under such circumstance, industries start to resort to other solutions, and the concept of small cells is proposed and has been included in 3G, LTE and WiMax standards\cite{Lin2011}.
 
@@ -76,14 +81,14 @@ The Laplace functional $\mathcal{L}$ of a PP $\Phi$ is defined as
 \end{displaymath}
 for some non-negative function $f$ on $\mathbb{R}^d$.
 \end{definition}
-\begin{proposition}
+\begin{proposition}\label{Proposition:LaplacePPP}
 The Laplace functional of PPP with intensity measure $\Lambda$ is
 \begin{equation}
 \mathcal{L}_{\Phi}(f) = e^{-\int_{\mathbb{R}^d}(1-e^{-f(\bm{c})})\Lambda(d \bm{c})}
 \end{equation}
 \end{proposition}
 \begin{proof}
-See.
+See \cite[Proposition 1.2.2]{Baccelli2009Vol1}.
 \end{proof}
 
 Some transformations can be applied to a PP.
@@ -94,7 +99,7 @@ The superposition of PP $\Phi_k$ is defined as the sum $\Phi=\sum_k \Phi_k$.
 The superposition of independent PPP with intensities $\Lambda_k$ is a PPP with intensity measure $\sum_k \Lambda_k$ if and only if the latter is locally finite measure.
 \end{proposition}	
 \begin{proof}
-See.
+See \cite[Proposition 1.3.3]{Baccelli2009Vol1}.
 \end{proof}
 \begin{definition}[\textbf{Thinning}]
 The thinning of $\Lambda$ with the retention function $p$ is a PP given by
@@ -107,7 +112,7 @@ where the random variables $\varepsilon_i$ are independent given $\Phi$, and $\P
 The thinning of the PPP of intensity measure $\Lambda$ with retention probability $p$ yields a PPP of intensity measure $\Lambda'$ with $\Lambda'(A)=\int_A p(\bm{c}) \Lambda(d\bm{c})$.
 \end{proposition}
 \begin{proof}
-See.
+See \cite[Proposition 1.3.5]{Baccelli2009Vol1}.
 \end{proof}
 In the analysis of wireless network, it is of special interest to model the distribution of other points in PP given a point at a certain location.
 \begin{definition}[\textbf{Palm theory}]
@@ -117,7 +122,7 @@ Consider a PP $\Phi$ with a locally finite mean measure. The Palm version of $\P
 For a PPP $\Phi$, its reduced Palm version $\Phi_{\bm{c}}^!$ is equal to its original distribution, i.e., $\Phi_{\bm{c}}^! = \Phi$ and $\Phi_{\bm{c}} = \Phi+\varepsilon_{\bm{c}}$ for all $\bm{c}\in\mathbb{R}^d$.    
 \end{theorem}
 \begin{proof}
-See.
+See \cite[Theorem 1.4.5]{Baccelli2009Vol1}.
 \end{proof}
 In addition, stationarity of a PP is also defined.
 \begin{definition}[\textbf{Stationarity}]
@@ -127,7 +132,7 @@ A PP $\Phi$ is stationary if its distribution is invariant under translation thr
 A homogeneous PPP is stationary.
 \end{proposition}
 \begin{proof}
-See.
+See \cite[Proposition 1.6.2]{Baccelli2009Vol1}.
 \end{proof}
 
 \section{Related Works}\label{Sec:Rel}
@@ -203,7 +208,7 @@ So the CCDF of SIR can be denoted by
 &\stackrel{(a)}{=}&\prod_{i} \mathbf{E} \{ e^{- \frac{\theta}{P_1} r^{\alpha} I_i} \} \nonumber\\
 &=&\prod_{i} \mathcal{L}_{I_i} (\frac{\theta}{P_1} r^{\alpha})
 \end{eqnarray}
-where equation (a) results from the independence among the two PPPs. For the Laplace transform of $I_i$, there is
+where equation (a) results from the independence among the two PPPs. For the Laplace transform of $I_i$. Similar to the proof of Proposition \ref{Proposition:LaplacePPP}, there is
 \begin{eqnarray}\label{Eq:Lap_Intf}
 \mathcal{L}_{I_i} (t) &=&\lim_{A \rightarrow \mathbb{R}^2} \sum_k e^{-\Lambda_i' (B)} \frac{(\Lambda_i' (B))^k}{k!}\cdot \nonumber\\
 &&(\frac{1}{\Lambda_i' (B)}\int_{B}\int e^{-t P_i |\bm{c}|^{-\alpha} h}f(h) dh \Lambda_i'(d\bm{c}))^k \nonumber\\
@@ -250,7 +255,7 @@ Note that the spatial reuse density of each frequency subband is $\sum_i p_i \la
 \section{Numerical Results}\label{Sec:Num}
 In this section, the numerical values of network metrics derived in \ref{Sec:Int} will be simulated.
 
-The network parameters are following: the BS/AP intensities are $\lambda_1 = 10^{-6} /\text{m}^2$ and $\lambda_2 = 10^{-4} /\text{m}^2$, the transmitting power of MBS is $10^4$ times higher than that of FAP. In this case, basing on (\ref{Eq:Prob_Serv}), an arbitrary user will be served by MBS or FAP with equal probability, and the statistics of SIR will be equivalent to that in the single tier case with access probability $\frac{p_1+p_2}{2}$.
+The network parameters are following: the BS/AP intensities are $\lambda_1 = 10^{-6} /\text{m}^2$ and $\lambda_2 = 10^{-4} /\text{m}^2$, the transmitting power of MBS is $10^4$ times higher than that of FAP. In this case, basing on (\ref{Eq:Prob_Serv}), an arbitrary user will be served by MBS or FAP with equal probability, and the statistics of SIR will be equivalent to that in the single tier case with access probability $\frac{p_1+p_2}{2}$. Users are assume to be uniformly distributed over the whole region, so $p_1$ is set to be equal to $p_2$  .
 
 \begin{figure}[t]
 	\centering
@@ -264,7 +269,7 @@ The network parameters are following: the BS/AP intensities are $\lambda_1 = 10^
 	\centering
 	\includegraphics[width = 0.4\textwidth]{figure/Capacity_cropped}
 	
-	\caption{Outage probability of the two-tier network}
+	\caption{Spatial average of channel capacity per frequency band}
 	\label{Fig:Capacity}
 \end{figure}
 
@@ -272,6 +277,8 @@ The outage probability of a channel is defined as the probability that the SIR o
 
 Fig. \ref{Fig:Capacity} gives the spatial average of channel capacity in an arbitrary frequency subband. It shows a very interesting result: from a information theory perspective, decreasing the access probability can reduce the interference, though, the channel capacity is also reduced. That is, more opportunities for transmission may outweigh a lower interference for the purpose of pursuing a better overall performance. However, this is only a conclusion in theoretical settings where the ideal channel coding of infinite length is applied, which is not possible in practice. The non-zero channel capacity may not be able to guarantee a valid communication between BS/AP and user when the SIR is too low.    
 \section{Conclusion}\label{Sec:Con}
+The proliferation of wireless devices necessitates the deployment of a large number of small BSs in wireless cellular network. To model the distribution of these BSs and evaluate the performance metrics of heterogeneous cellular network, stochastic geometry is introduced. In this paper, we introduced some basic concepts in stochastic geometry and some related literature on the topic. A toy example of a two-tier heterogeneous network was given to illustrate the applicability of stochastic geometry. It was shown that with the help of stochastic geometry, closed form expression of the statistics of downlink SIR can be achieved in Rayleigh fading channel with path-loss exponent of $4$, which could greatly simplify the analysis. An interesting result here was that in order to pursue a higher spatial average of channel capacity, each BS/AP of each tier should aggressively access all the available spectra. This substantiates the benefit of universal frequency reuse strategy in heterogeneous networks. However, better schemes in frequency reuse should still be considered to avoid interference for the purpose of providing better QoS to users.      
+
 \bibliographystyle{IEEEtran}
 \bibliography{ref}  
 \end{document}
